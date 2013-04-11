@@ -4,7 +4,7 @@ A small app to show how to use CloudFaker to test your app.
 
 It's a simple app that shows a collection of books, and then when you tap a book it will show you the author information for that book. 
 
-To run, get CloudFaker.
+To run, get [CloudFaker](https://github.com/divergio/CloudFaker "cloudfaker") first.
 
 Then run CloudFaker using the api_specs included:
 `ruby cloudfaker.rb /path/to/api_specs/DemoAppAPI.yaml -g /path/to/api_specs/DemoAppGenerator.rb`
