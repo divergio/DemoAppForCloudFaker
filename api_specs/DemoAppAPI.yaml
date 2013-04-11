@@ -1,0 +1,128 @@
+#API Specification for Demo App for CloudFaker
+
+Configuration:
+  PORT: 8080
+
+Constants:
+  TEST_USER_NAME: test
+  TEST_PASSWORD: test
+  APP_SECRET: ABCD123
+
+Objects:
+  Item:
+    #details are notes to the implementers, they show up in the markdown document
+    detail: An item with a picture, price, description, etc. 
+    properties:
+      id:
+        detail: an alphanumeric id for the item
+        type: string
+        generator: 
+          method: random_id
+      price:
+        detail: the price in Taiwanese dollars
+        type: integer
+        generator: 
+          method: random_number
+          args: [5,15]
+      description:
+        type: string
+        generator:
+          method: random_description
+      category:
+        type: string
+        values:
+          - Hat
+          - Shoe
+          - Shirt
+      owner_id:
+        detail: an id of an author
+        type: string
+        generator:
+          method: random_id
+      image:
+        detail: link to an image of size 200x200
+        type: string
+        generator:
+          method: random_image
+          args: [200, 200, "book"]
+          
+  Author:
+    detail: an author
+    properties:
+      id:
+        type: string
+        generator:
+          method: random_id
+      name:
+        type: string
+        generator:
+          method: random_name
+      home:
+        detail: the home country of the author
+        type: string
+        values:
+          - America
+          - Taiwan
+          - Canada
+          - UK
+          - Japan
+      biography:
+        detail: A short bio of the author
+        type: string
+        generator:
+          method: random_description
+      image:
+        detail: a URL to 360x360 image of the author
+        type: string
+        generator:
+          method: random_image
+          args: [360, 360, "people"]
+
+Requests:
+
+  feedItemsForAccountId:
+    type: GET
+    path: /api/items/
+    parameters:
+      account_id:
+        detail: The account_id for the user
+        type: string
+    success: |
+      { "success" : 
+        {"items" : $Item } }
+    failure: |
+      { "failure" : "No account found"}
+    conditions:
+      account_id: Exists
+    generator_params:
+      Item:
+        count:
+          min: 5
+          max: 10
+
+  authorForAuthorId:
+    detail: Retrieve the author object for a specified author_id
+    type: GET
+    path: /api/author/:author_id/
+    parameters:
+      app_secret:
+        detail: the shared key for the app
+        type: string
+      author_id: 
+        detail: the author_id of the author requested
+        type: string
+    success: |
+      { "success" : 
+        { "author" : $Author} }
+    failure: |
+      { "failure" : "Wrong app secret given"}
+    conditions:
+      app_secret: $APP_SECRET
+    generator_params:
+      Author:
+        #default count is 1
+        generator_args:
+          id:
+            #return an author object having the specified id
+            value: $author_id
+            

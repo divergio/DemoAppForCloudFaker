@@ -10,9 +10,12 @@
 
 @interface DemoAuthor : NSObject
 
+@property (nonatomic, strong) NSString* authorId;
 @property (nonatomic, strong) NSString* authorName;
 @property (nonatomic, strong) NSString* authorHome;
 @property (nonatomic, strong) NSString* authorBio;
 @property (nonatomic, strong) NSURL* authorImageURL;
+
++ (DemoAuthor*) authorFromDict: (NSDictionary*) dict;
 
 @end

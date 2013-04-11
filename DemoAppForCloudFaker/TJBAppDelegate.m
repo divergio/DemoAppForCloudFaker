@@ -12,10 +12,17 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    //Set the userID
+    //This is just faking if there was some login process or something
+    [[NSUserDefaults standardUserDefaults] setObject:@"UserABC123" forKey:@"userId"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    [[NSUserDefaults standardUserDefaults] setObject:@"ABCD123" forKey:@"appSecret"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
     
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
     [self.window setRootViewController:[[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController]];
     [self.window makeKeyAndVisible];
     return YES;

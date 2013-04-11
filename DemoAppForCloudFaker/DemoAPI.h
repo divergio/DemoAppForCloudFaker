@@ -7,19 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
+@class DemoAuthor;
 
 @interface DemoAPI : NSObject
+
++ (DemoAPI*) sharedAPI;
+
+- (NSString*) currentUserId;
+
+- (void) changeServer;
 
 - (void) feedItemsForAccountId: (NSString*) accountId
                        success:(void(^)(NSArray* items))successBlock
                        failure:(void(^)())failureBlock;
 
+- (void) authorForAuthorId: (NSString*) authorId
+                       success:(void(^)(DemoAuthor* author))successBlock
+                       failure:(void(^)())failureBlock;
+
+/* TODO later
 - (void) commentsForItemId: (NSString*) itemId
+                  language: (NSString*) lang
                    success:(void(^)(NSArray* comments))successBlock
                    failure:(void(^)())failureBlock;
-    
-- (void) authorInfoForAuthorId: (NSString*) authorId
-                       success:(void(^)(NSDictionary* authorInfoDict))successBlock
-                       failure:(void(^)())failureBlock;
+*/
 
 @end

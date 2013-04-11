@@ -10,4 +10,7 @@
 
 @interface DemoAppCVController : UICollectionViewController
 
+- (IBAction)refresh:(id)sender;
+- (IBAction)changeServer:(id)sender;
+
 @end
